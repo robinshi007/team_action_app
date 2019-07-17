@@ -1,11 +1,11 @@
 <template>
   <q-page padding>
-    <p>This is an about page</p>
+    <p>Ohhh...some thing went wrong.</p>
   </q-page>
 </template>
 
 <script>
 export default {
-  name: 'PageAbout',
+  name: 'PageNotFound',
 };
 </script>
