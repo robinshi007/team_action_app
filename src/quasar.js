@@ -18,6 +18,11 @@ import {
   QItemSection,
   QItemLabel,
   QAjaxBar,
+  QSpinner,
+  QInnerLoading,
+  QCard,
+  QCardSection,
+  QCardActions,
 } from 'quasar';
 
 Vue.use(Quasar, {
@@ -37,6 +42,11 @@ Vue.use(Quasar, {
     QItemSection,
     QItemLabel,
     QAjaxBar,
+    QSpinner,
+    QInnerLoading,
+    QCard,
+    QCardSection,
+    QCardActions,
   },
   directives: {
   },
