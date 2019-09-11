@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <p>This is an about page</p>
+    <p>This is the about page</p>
     <transition
       enter-active-class="animated fadeIn"
       leave-active-class="animated fadeOut"
@@ -42,13 +42,13 @@ export default {
         this.isLoading = false;
         this.isRequestDone = !this.isLoading;
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         this.isLoading = false;
         this.isRequestDone = !this.isLoading;
       });
   },
   methods: {
-  }
+  },
 };
 </script>
