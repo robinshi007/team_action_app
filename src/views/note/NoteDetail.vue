@@ -1,8 +1,9 @@
 <template>
   <q-page padding>
 
-    <div class='text-h4'>{{note.title}}</div>
-    <div class='text-body1'>{{note.body}}</div>
+    <div class='text-h4 q-py-sm'>{{note.title}}</div>
+    <q-badge color='green' :label="note.category.name" />
+    <div class='text-body1 q-pt-md'>{{note.body}}</div>
   </q-page>
 </template>
 

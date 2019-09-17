@@ -25,7 +25,9 @@
           />
 
           <q-select filled v-model="category_id" :options="selectOptions" label="Product"
-            emit-value map-options />
+            emit-value map-options
+            :rules="[ val => val && val.length > 0 || 'Please select something']"
+            />
           <div>
             <q-btn label="Submit" type="submit" color="primary" />
             <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
