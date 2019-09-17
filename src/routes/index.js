@@ -1,7 +1,9 @@
 import DefaultLayout from '../layouts/Default.vue';
 import Home from '../views/Home.vue';
-import Product from '../views/Product.vue';
-import Note from '../views/Note.vue';
+import Product from '../views/note/Product.vue';
+import NoteList from '../views/note/NoteList.vue';
+import NoteDetail from '../views/note/NoteDetail.vue';
+import NoteNew from '../views/note/NoteNew.vue';
 import NotFound from '../views/NotFound.vue';
 
 const routes = [
@@ -22,7 +24,17 @@ const routes = [
       {
         path: '/note',
         name: 'note',
-        component: Note,
+        component: NoteList,
+      },
+      {
+        path: '/note/:id',
+        name: 'note_detail',
+        component: NoteDetail,
+      },
+      {
+        path: '/note_new',
+        name: 'note_new',
+        component: NoteNew,
       },
       {
         path: '/*',

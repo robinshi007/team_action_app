@@ -4,39 +4,29 @@
       <q-space />
       <q-btn flat round dense icon="add"/>
     </q-toolbar>
-    <transition
-      enter-active-class="animated fadeIn"
-      leave-active-class="animated fadeOut"
-      mode="out-in"
-      :duration="300"
-      >
-      <q-list v-show="isRequestDone"  bordered separator>
+    <q-list bordered separator>
       <q-item v-for="cate in categories" :key="cate.id" clickable v-ripple>
         <q-item-section>
           {{cate.name}}
         </q-item-section>
       </q-item>
-      </q-list>
-    </transition>
+    </q-list>
   </q-page>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 
 export default {
   name: 'PageProduct',
-  data() {
-    return {
-      isRequestDone: false,
-    };
-  },
-  computed: {
-    categories() {
-      return this.$store.state.categories;
-    },
-  },
   mounted() {
     this.$store.dispatch('getCategories');
+    this.$emit('stopAjaxBar');
+  },
+  computed: {
+    ...mapState([
+      'categories',
+    ]),
   },
   methods: {
   },

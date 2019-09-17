@@ -25,6 +25,10 @@ import {
   QCard,
   QCardSection,
   QCardActions,
+  QForm,
+  QInput,
+  QToggle,
+  QSelect,
   Ripple,
 } from 'quasar';
 
@@ -52,6 +56,10 @@ Vue.use(Quasar, {
     QCard,
     QCardSection,
     QCardActions,
+    QForm,
+    QInput,
+    QToggle,
+    QSelect,
   },
   directives: {
     Ripple,

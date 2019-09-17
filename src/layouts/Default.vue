@@ -13,7 +13,7 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          Team Action
         </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
@@ -36,7 +36,7 @@
           </q-item-section>
         </q-item>
 
-        <q-item-label header>Entry</q-item-label>
+        <q-item-label header>App</q-item-label>
         <q-item to="/product" exact>
           <q-item-section avatar>
             <q-icon name="dns" />
@@ -62,10 +62,10 @@
       enter-active-class="animated fadeIn"
       leave-active-class="animated fadeOut"
       mode="out-in"
-      :duration="300"
+      :duration="150"
       @leave="resetScroll"
       >
-        <router-view />
+        <router-view v-on:startAjaxBar="onStartAjaxBar" v-on:stopAjaxBar="onStopAjaxBar" />
       </transition>
     </q-page-container>
   </q-layout>
@@ -80,7 +80,21 @@ export default {
       leftDrawerOpen: this.$q.platform.is.desktop,
     };
   },
+  mounted() {
+    const self = this;
+    this.$router.beforeEach((to, from, next) => {
+      self.$emit('startAjaxBar');
+      next();
+    });
+    this.$emit('stopAjaxBar');
+  },
   methods: {
+    onStartAjaxBar() {
+      this.$emit('startAjaxBar');
+    },
+    onStopAjaxBar() {
+      this.$emit('stopAjaxBar');
+    },
     resetScroll(el, done) {
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
@@ -93,13 +107,13 @@ export default {
 
 @keyframes fadeIn {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to { opacity: .15; }
 }
 .fadeIn {
   animation-name: fadeIn;
 }
 @keyframes fadeOut {
-  from { opacity: 1; }
+  from { opacity: .15; }
   to { opacity: 0; }
 }
 .fadeOut {

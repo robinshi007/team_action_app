@@ -10,5 +10,8 @@
 <script>
 export default {
   name: 'PageHome',
+  mounted() {
+    this.$emit('stopAjaxBar');
+  },
 };
 </script>
