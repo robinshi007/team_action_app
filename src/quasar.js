@@ -11,7 +11,9 @@ import {
   QPage,
   QToolbar,
   QToolbarTitle,
+  QSpace,
   QBtn,
+  QBadge,
   QIcon,
   QList,
   QItem,
@@ -23,6 +25,7 @@ import {
   QCard,
   QCardSection,
   QCardActions,
+  Ripple,
 } from 'quasar';
 
 Vue.use(Quasar, {
@@ -35,7 +38,9 @@ Vue.use(Quasar, {
     QPage,
     QToolbar,
     QToolbarTitle,
+    QSpace,
     QBtn,
+    QBadge,
     QIcon,
     QList,
     QItem,
@@ -49,6 +54,7 @@ Vue.use(Quasar, {
     QCardActions,
   },
   directives: {
+    Ripple,
   },
   plugins: {
   },

@@ -35,34 +35,25 @@
             <q-item-label>Home</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item to="/about" exact>
+
+        <q-item-label header>Entry</q-item-label>
+        <q-item to="/product" exact>
           <q-item-section avatar>
-            <q-icon name="info" />
+            <q-icon name="dns" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>About</q-item-label>
+            <q-item-label>Product</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/note" exact>
+          <q-item-section avatar>
+            <q-icon name="description" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Note</q-item-label>
           </q-item-section>
         </q-item>
 
-        <q-item-label header>Essential Links</q-item-label>
-        <q-item clickable tag="a" target="_blank" href="https://quasar.dev">
-          <q-item-section avatar>
-            <q-icon name="school" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Docs</q-item-label>
-            <q-item-label caption>quasar.dev</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://github.com/quasarframework/">
-          <q-item-section avatar>
-            <q-icon name="code" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Github</q-item-label>
-            <q-item-label caption>github.com/quasarframework</q-item-label>
-          </q-item-section>
-        </q-item>
       </q-list>
     </q-drawer>
 

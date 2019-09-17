@@ -2,39 +2,13 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import store from './store';
-
-import DefaultLayout from './layouts/Default.vue';
-import Home from './views/Home.vue';
-import About from './views/About.vue';
-import NotFound from './views/NotFound.vue';
+import routes from './routes';
 
 Vue.use(Router);
 
 const router = new Router({
   mode: 'history',
-  routes: [
-    {
-      path: '/',
-      component: DefaultLayout,
-      children: [
-        {
-          path: '',
-          name: 'home',
-          component: Home,
-        },
-        {
-          path: '/about',
-          name: 'about',
-          component: About,
-        },
-        {
-          path: '/*',
-          name: 'not_found',
-          component: NotFound,
-        },
-      ],
-    },
-  ],
+  routes,
 });
 
 router.beforeEach((to, from, next) => {
