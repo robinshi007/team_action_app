@@ -1,5 +1,6 @@
 import DefaultLayout from '../layouts/Default.vue';
 import Home from '../views/Home.vue';
+import Login from '../views/Login.vue';
 import Product from '../views/note/Product.vue';
 import NoteList from '../views/note/NoteList.vue';
 import NoteDetail from '../views/note/NoteDetail.vue';
@@ -16,6 +17,11 @@ const routes = [
         path: '',
         name: 'home',
         component: Home,
+      },
+      {
+        path: '/login',
+        name: 'login',
+        component: Login,
       },
       {
         path: '/product',
@@ -36,11 +42,17 @@ const routes = [
         path: '/note/:id/edit',
         name: 'note_edit',
         component: NoteEdit,
+        meta: {
+          requiresAuth: true,
+        },
       },
       {
         path: '/note_new',
         name: 'note_new',
         component: NoteNew,
+        meta: {
+          requiresAuth: true,
+        },
       },
       {
         path: '/*',

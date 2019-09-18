@@ -6,13 +6,31 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     isLoadingRoute: false,
+    status: '',
+    token: localStorage.getItem('token') || '',
     categories: [],
     notes: [],
   },
   getters: {
     getIsLoadingRoute: state => state.isLoadingRoute,
+    isLoggedIn: state => !!state.token,
+    authStatus: state => state.status,
   },
   mutations: {
+    auth_request(state) {
+      state.status = 'loading';
+    },
+    auth_success(state, token) {
+      state.status = 'success';
+      state.token = token;
+    },
+    auth_error(state) {
+      state.status = 'error';
+    },
+    auth_logout(state) {
+      state.status = '';
+      state.token = '';
+    },
     setLoadingRoute(state, status) {
       state.isLoadingRoute = status;
     },
@@ -36,6 +54,9 @@ export default new Vuex.Store({
     },
     clean_notes(state) {
       state.notes = [];
+    },
+    add_token(state, token) {
+      state.token = token;
     },
   },
   actions: {
@@ -70,6 +91,28 @@ export default new Vuex.Store({
     deleteNote(store, data) {
       // console.log(data);
       Vue.axios.delete(`/api/v1/noteapp/notes/${data.id}`).then((response) => {
+      });
+    },
+    login(store, data) {
+      // console.log(data);
+      store.commit('auth_request');
+      Vue.axios.post('/api/v1/login', data).then((response) => {
+        const { token } = response.data;
+        localStorage.setItem('token', token);
+        Vue.axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+        store.commit('auth_success', token);
+      }).catch((err) => {
+        store.commit('auth_error');
+        localStorage.removeItem('token');
+        Promise.reject(err);
+      });
+    },
+    logout({ commit }) {
+      return new Promise((resolve, reject) => {
+        commit('auth_logout');
+        localStorage.removeItem('token');
+        delete Vue.axios.defaults.headers.common.Authorization;
+        resolve();
       });
     },
   },

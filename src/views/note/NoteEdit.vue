@@ -1,7 +1,10 @@
 <template>
   <q-page padding>
     <div v-show="isDataLoaded" class="q-pa-md">
-    <q-toolbar>
+    <q-toolbar class="q-px-none">
+      <q-toolbar-title>
+        Editing Note
+      </q-toolbar-title>
       <q-space />
         <q-btn flat round dense icon="arrow_back" @click="gotoBack">
           <q-tooltip>
@@ -15,7 +18,7 @@
         ref="noteForm"
         >
         <q-input
-          filled
+          outlined
           v-model="note.title"
           label="title"
           hint="title"
@@ -23,7 +26,7 @@
           :rules="[ val => val && val.length > 0 || 'Please type something']"
           />
         <q-input
-          filled
+          outlined
           v-model="note.body"
           type="textarea"
           label="body content"
@@ -32,7 +35,7 @@
           />
 
           <q-select
-            filled
+            outlined
             v-model="note.category_id"
             :options="selectOptions"
             label="Product"

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view v-on:startAjaxBar="onStartAjaxBar" v-on:stopAjaxBar="onStopAjaxBar" />
-    <q-ajax-bar ref="bar" color="amber" size="2px" :delay="delay"/>
+    <q-ajax-bar ref="bar" color="amber" size="2px" :delay="delay" :animate="false" />
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 // ajax bar ref https://medium.com/@onur.kose/using-quasar-ajax-bar-within-every-component-b24165209313
 // https://github.com/quasarframework/quasar/issues/1381
 
-// import { mapGetters } from 'vuex';
+import Vue from 'vue';
 
 export default {
   name: 'App',
@@ -17,6 +17,19 @@ export default {
     return {
       delay: 0,
     };
+  },
+  created() {
+    this.axios.interceptors.response.use(resp => resp, err => new Promise((resolve, reject) => {
+      console.log('err', err);
+      if (err.response.status === 401) {
+        this.$q.notify({ message: 'Login failed. Invalid username or password.' });
+        this.$store.dispatch('logout');
+      }
+      if (err.response && err.response.data) {
+        return Promise.reject(err.response.data);
+      }
+      return Promise.reject(err);
+    }));
   },
   methods: {
     onStartAjaxBar() {
@@ -32,6 +45,6 @@ export default {
 </script>
 <style>
 #app > .q-loading-bar {
-  transition: transform 0.10s cubic-bezier(.42, 0, 0.58, 1), opacity 0.10s;
+  transition-duration: 0s;
 }
 </style>

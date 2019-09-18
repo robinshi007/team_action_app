@@ -1,8 +1,15 @@
 <template>
   <q-page padding>
-    <q-toolbar>
+      <q-toolbar class="q-px-none">
+        <q-toolbar-title>
+          List Products
+        </q-toolbar-title>
       <q-space />
-      <q-btn flat round dense icon="add"/>
+      <q-btn flat round dense icon="add">
+        <q-tooltip>
+          Add Product
+        </q-tooltip>
+      </q-btn>
     </q-toolbar>
     <q-list bordered separator>
       <q-item v-for="cate in categories" :key="cate.id" clickable v-ripple>

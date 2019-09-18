@@ -1,12 +1,15 @@
 <template>
   <q-page v-show="isDataLoaded" padding>
-    <q-toolbar>
+    <q-toolbar class="q-px-none">
+      <q-toolbar-title>
+        List Notes
+      </q-toolbar-title>
       <q-space />
-        <q-btn flat round dense icon="add" @click="gotoNoteNew">
-          <q-tooltip>
-            Add Note
-          </q-tooltip>
-        </q-btn>
+      <q-btn flat round dense icon="add" @click="gotoNoteNew">
+        <q-tooltip>
+          Add Note
+        </q-tooltip>
+      </q-btn>
     </q-toolbar>
     <q-list bordered separator>
       <q-item v-for="note in notes" :key="note.id" clickable v-ripple>
@@ -38,7 +41,7 @@ export default {
     ]),
   },
   beforeCreate() {
-    this.$store.dispatch('cleanNotes');
+    // this.$store.dispatch('cleanNotes');
   },
   mounted() {
     this.$store.dispatch('getNotes');

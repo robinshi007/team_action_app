@@ -31,8 +31,11 @@ import {
   QToggle,
   QSelect,
   QTooltip,
+  QDialog,
+  QAvatar,
   Ripple,
   Notify,
+  ClosePopup,
 } from 'quasar';
 
 Vue.use(Quasar, {
@@ -64,9 +67,12 @@ Vue.use(Quasar, {
     QToggle,
     QSelect,
     QTooltip,
+    QDialog,
+    QAvatar,
   },
   directives: {
     Ripple,
+    ClosePopup,
   },
   plugins: {
     Notify,

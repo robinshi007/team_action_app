@@ -16,12 +16,19 @@
           Team Action
         </q-toolbar-title>
 
-        <q-btn-dropdown class='text-bold' align='align' label='About' flat stretch auto-close>
+        <q-btn flat stretch>v{{ $q.version }}</q-btn>
+        <q-btn flat stretch v-if="!isLoggedIn">
+          <a @click.prevent="gotoLogin">
+            Login
+          </a>
+        </q-btn>
+        <q-btn-dropdown align='align' label='About' flat stretch auto-close v-if="isLoggedIn">
           <q-list dense padding>
-            <q-item-label header>Version</q-item-label>
             <q-item clickable>
               <q-item-section>
-                v{{ $q.version }}
+                <a @click.prevent="logout">
+                  Logout
+                </a>
               </q-item-section>
               </q-item>
           </q-list>
@@ -31,6 +38,7 @@
 
     <q-drawer
       v-model="leftDrawerOpen"
+      :width="240"
       bordered
       content-class="bg-grey-2"
     >
@@ -81,6 +89,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'LayoutDefault',
 
@@ -88,6 +98,11 @@ export default {
     return {
       leftDrawerOpen: this.$q.platform.is.desktop,
     };
+  },
+  computed: {
+    ...mapGetters([
+      'isLoggedIn',
+    ]),
   },
   mounted() {
     const self = this;
@@ -108,6 +123,12 @@ export default {
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
       done();
+    },
+    gotoLogin() {
+      return this.$router.push('/login');
+    },
+    logout() {
+      this.$store.dispatch('logout');
     },
   },
 };

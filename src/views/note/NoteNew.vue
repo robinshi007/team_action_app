@@ -1,13 +1,16 @@
 <template>
   <q-page padding>
     <div v-show="isDataLoaded" class="q-pa-md">
-      <q-toolbar>
+      <q-toolbar class="q-px-none">
+        <q-toolbar-title>
+          New Note
+        </q-toolbar-title>
         <q-space />
-          <q-btn flat round dense icon="arrow_back" @click="gotoBack">
-            <q-tooltip>
-              Go back
-            </q-tooltip>
-          </q-btn>
+        <q-btn flat round dense icon="arrow_back" @click="gotoBack">
+          <q-tooltip>
+            Go back
+          </q-tooltip>
+        </q-btn>
       </q-toolbar>
       <q-form
         @submit="onSubmit"
@@ -16,7 +19,7 @@
         ref="noteForm"
         >
         <q-input
-          filled
+          outlined
           v-model="title"
           label="title"
           hint="title"
@@ -24,7 +27,7 @@
           :rules="[ val => val && val.length > 0 || 'Please type something']"
           />
         <q-input
-          filled
+          outlined
           v-model="body"
           type="textarea"
           label="body content"
@@ -32,7 +35,7 @@
           :rules="[ val => val && val.length > 0 || 'Please type something']"
           />
 
-          <q-select filled v-model="category_id" :options="selectOptions" label="Product"
+          <q-select outlined v-model="category_id" :options="selectOptions" label="Product"
             emit-value map-options
             :rules="[ val => val && val.length > 0 || 'Please select something']"
             />

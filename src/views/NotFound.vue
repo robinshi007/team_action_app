@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <p>Ohhh...some thing went wrong.</p>
+    <p class="text-h4 text-blue-grey-8">Ohhh...some thing went wrong.</p>
   </q-page>
 </template>
 
