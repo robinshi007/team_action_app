@@ -8,7 +8,6 @@ export default new Vuex.Store({
     isLoadingRoute: false,
     categories: [],
     notes: [],
-    note: {},
   },
   getters: {
     getIsLoadingRoute: state => state.isLoadingRoute,
@@ -35,8 +34,8 @@ export default new Vuex.Store({
     remove_note(state, index) {
       state.notes.splice(index, 1);
     },
-    get_note(state, note) {
-      state.note = note;
+    clean_notes(state) {
+      state.notes = [];
     },
   },
   actions: {
@@ -53,14 +52,24 @@ export default new Vuex.Store({
     },
     addNote(store, data) {
       Vue.axios.post('/api/v1/noteapp/notes', data).then((response) => {
-        // Vue.axios.get(`/api/v1/noteapp/notes/${response.data.data}`).then((resp) => {
-        // store.commit('add_note', resp.data.data);
-        // });
       });
     },
     getNote(store, data) {
       Vue.axios.get(`/api/v1/noteapp/notes/${data}`).then((response) => {
         store.commit('get_note', response.data.data);
+      });
+    },
+    cleanNotes(store) {
+      store.commit('clean_notes');
+    },
+    editNote(store, data) {
+      // console.log(data);
+      Vue.axios.put(`/api/v1/noteapp/notes/${data.id}`, data.data).then((response) => {
+      });
+    },
+    deleteNote(store, data) {
+      // console.log(data);
+      Vue.axios.delete(`/api/v1/noteapp/notes/${data.id}`).then((response) => {
       });
     },
   },

@@ -1,8 +1,12 @@
 <template>
-  <q-page padding>
+  <q-page v-show="isDataLoaded" padding>
     <q-toolbar>
       <q-space />
-      <q-btn flat round dense icon="add" @click="gotoNoteNew"/>
+        <q-btn flat round dense icon="add" @click="gotoNoteNew">
+          <q-tooltip>
+            Add Note
+          </q-tooltip>
+        </q-btn>
     </q-toolbar>
     <q-list bordered separator>
       <q-item v-for="note in notes" :key="note.id" clickable v-ripple>
@@ -25,6 +29,7 @@ export default {
   name: 'PageNote',
   data() {
     return {
+      isDataLoaded: false,
     };
   },
   computed: {
@@ -32,8 +37,12 @@ export default {
       'notes',
     ]),
   },
+  beforeCreate() {
+    this.$store.dispatch('cleanNotes');
+  },
   mounted() {
     this.$store.dispatch('getNotes');
+    this.isDataLoaded = true;
     this.$emit('stopAjaxBar');
   },
   methods: {

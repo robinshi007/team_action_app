@@ -13,6 +13,7 @@ import {
   QToolbarTitle,
   QSpace,
   QBtn,
+  QBtnDropdown,
   QBadge,
   QIcon,
   QList,
@@ -29,11 +30,12 @@ import {
   QInput,
   QToggle,
   QSelect,
+  QTooltip,
   Ripple,
+  Notify,
 } from 'quasar';
 
 Vue.use(Quasar, {
-  config: {},
   components: {
     QLayout,
     QHeader,
@@ -44,6 +46,7 @@ Vue.use(Quasar, {
     QToolbarTitle,
     QSpace,
     QBtn,
+    QBtnDropdown,
     QBadge,
     QIcon,
     QList,
@@ -60,10 +63,21 @@ Vue.use(Quasar, {
     QInput,
     QToggle,
     QSelect,
+    QTooltip,
   },
   directives: {
     Ripple,
   },
   plugins: {
+    Notify,
+  },
+  config: {
+    notify: {
+      position: 'top',
+      timeout: 2000,
+      color: 'white',
+      textColor: 'primary',
+      actions: [{ icon: 'close', color: 'primary' }],
+    },
   },
 });

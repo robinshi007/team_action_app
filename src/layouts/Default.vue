@@ -16,7 +16,16 @@
           Team Action
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <q-btn-dropdown class='text-bold' align='align' label='About' flat stretch auto-close>
+          <q-list dense padding>
+            <q-item-label header>Version</q-item-label>
+            <q-item clickable>
+              <q-item-section>
+                v{{ $q.version }}
+              </q-item-section>
+              </q-item>
+          </q-list>
+        </q-btn-dropdown>
       </q-toolbar>
     </q-header>
 
@@ -37,7 +46,7 @@
         </q-item>
 
         <q-item-label header>App</q-item-label>
-        <q-item to="/product" exact>
+        <q-item to="/product">
           <q-item-section avatar>
             <q-icon name="dns" />
           </q-item-section>
@@ -45,7 +54,7 @@
             <q-item-label>Product</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item to="/note" exact>
+        <q-item to="/note">
           <q-item-section avatar>
             <q-icon name="description" />
           </q-item-section>
@@ -103,8 +112,8 @@ export default {
   },
 };
 </script>
-<style>
 
+<style>
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: .15; }
@@ -118,5 +127,10 @@ export default {
 }
 .fadeOut {
   animation-name: fadeOut;
+}
+.q-page {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

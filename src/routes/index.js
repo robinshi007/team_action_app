@@ -4,6 +4,7 @@ import Product from '../views/note/Product.vue';
 import NoteList from '../views/note/NoteList.vue';
 import NoteDetail from '../views/note/NoteDetail.vue';
 import NoteNew from '../views/note/NoteNew.vue';
+import NoteEdit from '../views/note/NoteEdit.vue';
 import NotFound from '../views/NotFound.vue';
 
 const routes = [
@@ -30,6 +31,11 @@ const routes = [
         path: '/note/:id',
         name: 'note_detail',
         component: NoteDetail,
+      },
+      {
+        path: '/note/:id/edit',
+        name: 'note_edit',
+        component: NoteEdit,
       },
       {
         path: '/note_new',
