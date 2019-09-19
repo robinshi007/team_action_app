@@ -1,10 +1,10 @@
 import Vue from 'vue';
 
+import './registerServiceWorker';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import './api';
-import './registerServiceWorker';
+import './http';
 import './quasar';
 
 Vue.config.productionTip = false;

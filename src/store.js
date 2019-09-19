@@ -5,16 +5,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    isLoadingRoute: false,
     status: '',
     token: localStorage.getItem('token') || '',
+    username: localStorage.getItem('username') || '',
     categories: [],
     notes: [],
   },
   getters: {
-    getIsLoadingRoute: state => state.isLoadingRoute,
     isLoggedIn: state => state.token !== '',
     authStatus: state => state.status,
+    username: state => state.username,
   },
   mutations: {
     auth_request(state) {
@@ -26,13 +26,11 @@ export default new Vuex.Store({
     },
     auth_error(state) {
       state.status = 'error';
+      state.token = '';
     },
     auth_logout(state) {
       state.status = '';
       state.token = '';
-    },
-    setLoadingRoute(state, status) {
-      state.isLoadingRoute = status;
     },
     get_categories(state, categories) {
       state.categories = categories;
@@ -55,8 +53,8 @@ export default new Vuex.Store({
     clean_notes(state) {
       state.notes = [];
     },
-    add_token(state, token) {
-      state.token = token;
+    set_username(state, name) {
+      state.username = name;
     },
   },
   actions: {
@@ -111,8 +109,16 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         commit('auth_logout');
         localStorage.removeItem('token');
+        localStorage.removeItem('username');
         delete Vue.axios.defaults.headers.common.Authorization;
         resolve();
+      });
+    },
+    setUsername({ commit }) {
+      // console.log(data);
+      return Vue.axios.get('/api/v1/auth/hello').then((response) => {
+        commit('set_username', response.data.userName);
+        localStorage.setItem('username', response.data.userName);
       });
     },
   },

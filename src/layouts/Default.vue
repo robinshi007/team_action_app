@@ -22,7 +22,7 @@
             Login
           </a>
         </q-btn>
-        <q-btn-dropdown align='align' label='About' flat stretch auto-close v-if="isLoggedIn">
+        <q-btn-dropdown align='align' :label='username' flat stretch auto-close v-if="isLoggedIn">
           <q-list dense padding>
             <q-item clickable>
               <q-item-section>
@@ -102,6 +102,7 @@ export default {
   computed: {
     ...mapGetters([
       'isLoggedIn',
+      'username',
     ]),
   },
   mounted() {
@@ -132,6 +133,7 @@ export default {
         this.$q.notify({ message: 'Logout successfully.' });
         // reload the page
         window.location.reload(true);
+        // this.$router.go(-1);
       });
     },
   },
