@@ -18,7 +18,7 @@
           </router-link>
         </q-item-section>
         <q-item-section side>
-          <q-badge color='green' :label="note.category.name" />
+          <q-badge v-show="note.category" color='green' :label="note.category && note.category.name" />
         </q-item-section>
       </q-item>
     </q-list>

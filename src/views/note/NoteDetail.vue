@@ -18,7 +18,7 @@
     </q-toolbar>
     <div v-show="isDataLoaded">
       <div class='text-h4 q-py-sm'>{{note.title}}</div>
-      <q-badge color='green' :label="note.category ? note.category.name : '' " />
+      <q-badge v-show="note.category" color='green' :label="note.category && note.category.name" />
       <div class='text-body1 q-pt-md'>{{note.body}}</div>
     </div>
     <q-dialog v-model="confirm_dialog" persistent>
@@ -68,7 +68,7 @@ export default {
       this.note.id = data.id;
       this.note.title = data.title;
       this.note.body = data.body;
-      this.note.category_id = data.category.id;
+      this.note.category_id = data.category && data.category.id;
       this.note.category = data.category;
       this.isDataLoaded = true;
     });

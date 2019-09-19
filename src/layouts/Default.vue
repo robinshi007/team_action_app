@@ -15,7 +15,13 @@
         <q-toolbar-title>
           Team Action
         </q-toolbar-title>
-
+        <q-input dark dense standout v-model="searchText" input-class="text-right" class="q-ml-md"
+           @keyup.enter="onSearch">
+          <template v-slot:append>
+            <q-icon v-if="searchText === ''" name="search" />
+              <q-icon v-else name="close" class="cursor-pointer" @click="searchText=''" />
+          </template>
+        </q-input>
         <q-btn flat stretch>v{{ $q.version }}</q-btn>
         <q-btn flat stretch v-if="!isLoggedIn">
           <a @click.prevent="gotoLogin">
@@ -96,6 +102,7 @@ export default {
 
   data() {
     return {
+      searchText: '',
       leftDrawerOpen: this.$q.platform.is.desktop,
     };
   },
@@ -135,6 +142,9 @@ export default {
         window.location.reload(true);
         // this.$router.go(-1);
       });
+    },
+    onSearch() {
+      console.log('search', this.searchText);
     },
   },
 };
