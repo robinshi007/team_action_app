@@ -9,8 +9,6 @@
 // ajax bar ref https://medium.com/@onur.kose/using-quasar-ajax-bar-within-every-component-b24165209313
 // https://github.com/quasarframework/quasar/issues/1381
 
-import Vue from 'vue';
-
 export default {
   name: 'App',
   data() {
@@ -23,7 +21,7 @@ export default {
       console.log('err', err);
       if (err.response.status === 401) {
         this.$q.notify({ message: 'Login failed. Invalid username or password.' });
-        this.$store.dispatch('logout');
+        this.$store.dispatch('logout').then(() => this.$router.replace({ name: 'login' }));
       }
       if (err.response && err.response.data) {
         return Promise.reject(err.response.data);

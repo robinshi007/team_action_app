@@ -128,7 +128,11 @@ export default {
       return this.$router.push('/login');
     },
     logout() {
-      this.$store.dispatch('logout');
+      this.$store.dispatch('logout').then(() => {
+        this.$q.notify({ message: 'Logout successfully.' });
+        // reload the page
+        window.location.reload(true);
+      });
     },
   },
 };

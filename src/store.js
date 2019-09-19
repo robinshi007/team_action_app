@@ -13,7 +13,7 @@ export default new Vuex.Store({
   },
   getters: {
     getIsLoadingRoute: state => state.isLoadingRoute,
-    isLoggedIn: state => !!state.token,
+    isLoggedIn: state => state.token !== '',
     authStatus: state => state.status,
   },
   mutations: {
@@ -96,7 +96,7 @@ export default new Vuex.Store({
     login(store, data) {
       // console.log(data);
       store.commit('auth_request');
-      Vue.axios.post('/api/v1/login', data).then((response) => {
+      return Vue.axios.post('/api/v1/login', data).then((response) => {
         const { token } = response.data;
         localStorage.setItem('token', token);
         Vue.axios.defaults.headers.common.Authorization = `Bearer ${token}`;

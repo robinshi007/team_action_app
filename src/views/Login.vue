@@ -55,7 +55,14 @@ export default {
       const { username } = this;
       const { password } = this;
       this.$store.dispatch('login', { username, password }).then(() => {
-        this.$router.push('/note');
+        const { query } = this.$route;
+        if (query && query.redirect) {
+          this.$router.replace(query.redirect);
+          // this.$q.notify({ message: 'Logout successfully.' });
+        } else {
+          this.$router.push('/note');
+          // this.$q.notify({ message: 'Logout successfully.' });
+        }
       }).catch((err) => {
         console.log(err);
       });
