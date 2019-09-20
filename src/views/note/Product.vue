@@ -11,7 +11,7 @@
         </q-tooltip>
       </q-btn>
     </q-toolbar>
-    <q-list bordered separator>
+    <q-list separator>
       <q-item v-for="cate in categories" :key="cate.id" clickable v-ripple>
         <q-item-section>
           {{cate.name}}
