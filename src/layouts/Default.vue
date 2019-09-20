@@ -15,7 +15,8 @@
         <q-toolbar-title>
           Team Action
         </q-toolbar-title>
-        <q-input dark dense standout v-model="searchText" input-class="text-right" class="q-ml-md"
+        <q-input dark dense standout v-model="searchText" input-class="text-right"
+           class="q-ml-md site_search"
            @keyup.enter="onSearch">
           <template v-slot:append>
             <q-icon v-if="searchText === ''" name="search" />
@@ -102,7 +103,6 @@ export default {
 
   data() {
     return {
-      searchText: '',
       leftDrawerOpen: this.$q.platform.is.desktop,
     };
   },
@@ -111,6 +111,10 @@ export default {
       'isLoggedIn',
       'username',
     ]),
+    searchText: {
+      get() { return this.$store.state.search_text; },
+      set(val) { this.updateSearchText(val); },
+    },
   },
   mounted() {
     const self = this;
@@ -144,7 +148,16 @@ export default {
       });
     },
     onSearch() {
-      console.log('search', this.searchText);
+      if (this.searchText) {
+        this.$store.dispatch('setSearchResult', this.searchText).then(() => {
+          this.$router.push({ name: 'search_result' });
+        });
+      } else {
+        this.$q.notify({ message: 'Search text is empty, please check.' });
+      }
+    },
+    updateSearchText(val) {
+      this.$store.dispatch('setSearchText', val);
     },
   },
 };
@@ -169,5 +182,11 @@ export default {
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+}
+.site_search {
+  transition: all .2s ease-in-out;
+}
+.site_search:focus {
+  background-color: #1976d2;
 }
 </style>

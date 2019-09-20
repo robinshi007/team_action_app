@@ -2,17 +2,11 @@
   <q-page v-show="isDataLoaded" padding>
     <q-toolbar class="q-px-none">
       <q-toolbar-title>
-        List Notes
+        Search Result
       </q-toolbar-title>
-      <q-space />
-      <q-btn flat round dense icon="add" @click="gotoNoteNew">
-        <q-tooltip>
-          Add Note
-        </q-tooltip>
-      </q-btn>
     </q-toolbar>
     <q-list bordered separator>
-      <q-item v-for="note in notes" :key="note.id" clickable v-ripple>
+      <q-item v-for="note in searchResult" :key="note.id" clickable v-ripple>
         <q-item-section>
           <router-link :to='{ name: "note_detail", params: { id: note.id }}'>{{note.title}}
           </router-link>
@@ -27,32 +21,26 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
-  name: 'PageNote',
+  name: 'PageSearchResult',
   data() {
     return {
       isDataLoaded: false,
     };
   },
   computed: {
-    ...mapState([
-      'notes',
+    ...mapGetters([
+      'searchText',
+      'searchResult',
     ]),
   },
-  beforeCreate() {
-    // this.$store.dispatch('cleanNotes');
-  },
   mounted() {
-    this.$store.dispatch('getNotes');
     this.isDataLoaded = true;
     this.$emit('stopAjaxBar');
   },
   methods: {
-    gotoNoteNew() {
-      return this.$router.push('/note_new');
-    },
   },
 };
 </script>

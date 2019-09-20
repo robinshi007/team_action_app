@@ -7,6 +7,7 @@ import NoteDetail from '../views/note/NoteDetail.vue';
 import NoteNew from '../views/note/NoteNew.vue';
 import NoteEdit from '../views/note/NoteEdit.vue';
 import NotFound from '../views/NotFound.vue';
+import SearchResult from '../views/Search.vue';
 
 const routes = [
   {
@@ -22,6 +23,11 @@ const routes = [
         path: '/login',
         name: 'login',
         component: Login,
+      },
+      {
+        path: '/search',
+        name: 'search_result',
+        component: SearchResult,
       },
       {
         path: '/product',

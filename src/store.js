@@ -10,11 +10,15 @@ export default new Vuex.Store({
     username: localStorage.getItem('username') || '',
     categories: [],
     notes: [],
+    search_text: '',
+    search_result: [],
   },
   getters: {
     isLoggedIn: state => state.token !== '',
     authStatus: state => state.status,
     username: state => state.username,
+    searchText: state => state.search_text,
+    searchResult: state => state.search_result,
   },
   mutations: {
     auth_request(state) {
@@ -55,6 +59,18 @@ export default new Vuex.Store({
     },
     set_username(state, name) {
       state.username = name;
+    },
+    clean_search_text(state) {
+      state.search_text = '';
+    },
+    set_search_text(state, word) {
+      state.search_text = word;
+    },
+    clean_search_result(state) {
+      state.search_result = [];
+    },
+    set_search_result(state, result) {
+      state.search_result = result;
     },
   },
   actions: {
@@ -119,6 +135,31 @@ export default new Vuex.Store({
       return Vue.axios.get('/api/v1/auth/hello').then((response) => {
         commit('set_username', response.data.userName);
         localStorage.setItem('username', response.data.userName);
+      });
+    },
+    setSearchText({ commit }, word) {
+      return new Promise((resolve, reject) => {
+        commit('set_search_text', word);
+        resolve();
+      });
+    },
+    cleanSearchText({ commit }) {
+      return new Promise((resolve, reject) => {
+        commit('clean_search_text');
+        resolve();
+      });
+    },
+    setSearchResult({ commit }, searchText) {
+      // console.log('search', searchText);
+      return Vue.axios.get(`/api/v1/noteapp/notes/${searchText}/search`).then((response) => {
+        const results = response.data.data;
+        commit('set_search_result', results);
+      });
+    },
+    cleanSearchResult({ commit }) {
+      return new Promise((resolve, reject) => {
+        commit('clean_search_result');
+        resolve();
       });
     },
   },
