@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh Lpr fFf">
     <!--<q-header elevated class="glossy">-->
     <q-header elevated class="">
       <q-toolbar>
@@ -61,14 +61,6 @@
         </q-item>
 
         <q-item-label header>App</q-item-label>
-        <q-item to="/product">
-          <q-item-section avatar>
-            <q-icon name="dns" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Product</q-item-label>
-          </q-item-section>
-        </q-item>
         <q-item to="/note">
           <q-item-section avatar>
             <q-icon name="description" />
@@ -77,7 +69,24 @@
             <q-item-label>Note</q-item-label>
           </q-item-section>
         </q-item>
+      </q-list>
+    </q-drawer>
 
+    <q-drawer
+      v-model="rightDrawerOpen"
+      show-if-above
+      side="right"
+      :width="240"
+    >
+      <q-list>
+        <q-item-label header>Categories</q-item-label>
+        <q-item v-for="cate in categories" :key="cate.id" dense
+                :to="{name: 'product_detail', params: { id: cate.id}}"
+          >
+          <q-item-section>
+            <q-item-label>{{ cate.name }}</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 
@@ -89,7 +98,8 @@
       :duration="150"
       @leave="resetScroll"
       >
-        <router-view v-on:startAjaxBar="onStartAjaxBar" v-on:stopAjaxBar="onStopAjaxBar" />
+      <router-view v-on:startAjaxBar="onStartAjaxBar" v-on:stopAjaxBar="onStopAjaxBar"
+        :key="$route.fullPath"/>
       </transition>
     </q-page-container>
   </q-layout>
@@ -104,12 +114,14 @@ export default {
   data() {
     return {
       leftDrawerOpen: this.$q.platform.is.desktop,
+      rightDrawerOpen: this.$q.platform.is.desktop,
     };
   },
   computed: {
     ...mapGetters([
       'isLoggedIn',
       'username',
+      'categories',
     ]),
     searchText: {
       get() { return this.$store.state.search_text; },
@@ -179,7 +191,7 @@ export default {
   animation-name: fadeOut;
 }
 .q-page {
-  max-width: 800px;
+  max-width: 560px;
   margin-left: auto;
   margin-right: auto;
 }

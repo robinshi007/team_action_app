@@ -1,7 +1,10 @@
 import DefaultLayout from '../layouts/Default.vue';
 import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
-import Product from '../views/note/Product.vue';
+import ProductList from '../views/note/ProductList.vue';
+import ProductDetail from '../views/note/ProductDetail.vue';
+import ProductNew from '../views/note/ProductNew.vue';
+import ProductEdit from '../views/note/ProductEdit.vue';
 import NoteList from '../views/note/NoteList.vue';
 import NoteDetail from '../views/note/NoteDetail.vue';
 import NoteNew from '../views/note/NoteNew.vue';
@@ -31,12 +34,36 @@ const routes = [
       },
       {
         path: '/product',
-        name: 'product',
-        component: Product,
+        name: 'product_list',
+        component: ProductList,
+      },
+      {
+        path: '/product_new',
+        name: 'product_new',
+        component: ProductNew,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/product/:id',
+        name: 'product_detail',
+        component: ProductDetail,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/product/:id/edit',
+        name: 'product_edit',
+        component: ProductEdit,
+        meta: {
+          requiresAuth: true,
+        },
       },
       {
         path: '/note',
-        name: 'note',
+        name: 'note_list',
         component: NoteList,
       },
       {

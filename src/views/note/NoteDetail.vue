@@ -10,11 +10,11 @@
           Edit
         </q-tooltip>
       </q-btn>
-        <q-btn flat round dense icon="delete" @click="confirm_dialog = true" v-if="isLoggedIn">
-          <q-tooltip>
-            Delete
-          </q-tooltip>
-        </q-btn>
+      <q-btn flat round dense icon="delete" @click="confirm_dialog = true" v-if="isLoggedIn">
+        <q-tooltip>
+          Delete
+        </q-tooltip>
+      </q-btn>
     </q-toolbar>
     <div v-show="isDataLoaded">
       <div class='text-h4 q-py-sm'>{{note.title}}</div>

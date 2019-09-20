@@ -3,6 +3,7 @@
     <q-toolbar class="q-px-none">
       <q-toolbar-title>
         Note List
+      <q-badge color='green' class='q-pa-xs' :label="current_category" />
       </q-toolbar-title>
       <q-space />
       <q-btn flat round dense icon="add" @click="gotoNoteNew">
@@ -34,22 +35,22 @@ export default {
     ...mapState([
       'notes',
       'username',
+      'current_category',
     ]),
   },
-  beforeCreate() {
-    // this.$store.dispatch('cleanNotes');
-  },
   mounted() {
-    this.$store.dispatch('getNotes').then(() => {
-      this.$store.dispatch('getProducts').then(() => {
-        this.isDataLoaded = true;
-        this.$emit('stopAjaxBar');
-      });
+    this.fetchData().then(() => {
+      this.isDataLoaded = true;
+      this.$emit('stopAjaxBar');
     });
   },
   methods: {
     gotoNoteNew() {
       return this.$router.push({ name: 'note_new' });
+    },
+    fetchData() {
+      const { id } = this.$route.params;
+      return this.$store.dispatch('getProductNotes', { id }).then(() => this.$store.dispatch('getProducts'));
     },
   },
 };

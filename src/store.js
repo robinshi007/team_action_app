@@ -8,10 +8,11 @@ export default new Vuex.Store({
     status: '',
     token: localStorage.getItem('token') || '',
     username: localStorage.getItem('username') || '',
-    categories: [],
-    notes: [],
     search_text: '',
     search_result: [],
+    categories: [],
+    notes: [],
+    current_category: '',
   },
   getters: {
     isLoggedIn: state => state.token !== '',
@@ -19,6 +20,8 @@ export default new Vuex.Store({
     username: state => state.username,
     searchText: state => state.search_text,
     searchResult: state => state.search_result,
+    categories: state => state.categories,
+    currentCategory: state => state.current_category,
   },
   mutations: {
     auth_request(state) {
@@ -36,8 +39,11 @@ export default new Vuex.Store({
       state.status = '';
       state.token = '';
     },
-    get_categories(state, categories) {
-      state.categories = categories;
+    set_categories(state, categories) {
+      Vue.set(state, 'categories', [...categories]);
+    },
+    set_current_category(state, category) {
+      state.current_category = category;
     },
     add_category(state, category) {
       state.categories.push(category);
@@ -45,8 +51,8 @@ export default new Vuex.Store({
     remove_category(state, index) {
       state.categories.splice(index, 1);
     },
-    get_notes(state, notes) {
-      state.notes = notes;
+    set_notes(state, notes) {
+      Vue.set(state, 'notes', [...notes]);
     },
     add_note(state, note) {
       state.notes.push(note);
@@ -70,41 +76,58 @@ export default new Vuex.Store({
       state.search_result = [];
     },
     set_search_result(state, result) {
-      state.search_result = result;
+      Vue.set(state, 'search_result', [...result]);
     },
   },
   actions: {
-    getCategories({ commit }) {
-      Vue.axios.get('/api/v1/noteapp/categories').then(response => response.data).then((json) => {
+    getProducts({ commit }) {
+      return Vue.axios.get('/api/v1/noteapp/categories').then(response => response.data).then((json) => {
         // console.log(response.data.data);
-        commit('get_categories', json.data);
+        commit('set_categories', json.data);
+      });
+    },
+    createProduct(store, data) {
+      return Vue.axios.post('/api/v1/noteapp/categories', data).then((response) => {
+      });
+    },
+    updateProduct(store, data) {
+      // console.log(data);
+      return Vue.axios.put(`/api/v1/noteapp/categories/${data.id}`, data.data).then((response) => {
+      });
+    },
+    getProductNotes(store, data) {
+      return Vue.axios.get(`/api/v1/noteapp/categories/${data.id}`).then((response) => {
+        const product = response.data.data.name;
+        const notes = response.data.data.notes || [];
+        store.commit('set_notes', notes);
+        store.commit('set_current_category', product);
       });
     },
     getNotes(store) {
-      Vue.axios.get('/api/v1/noteapp/notes').then((response) => {
-        store.commit('get_notes', response.data.data);
+      return Vue.axios.get('/api/v1/noteapp/notes').then((response) => {
+        store.commit('set_notes', response.data.data);
       });
     },
-    addNote(store, data) {
-      Vue.axios.post('/api/v1/noteapp/notes', data).then((response) => {
+    createNote(store, data) {
+      return Vue.axios.post('/api/v1/noteapp/notes', data).then((response) => {
       });
     },
     getNote(store, data) {
-      Vue.axios.get(`/api/v1/noteapp/notes/${data}`).then((response) => {
+      return Vue.axios.get(`/api/v1/noteapp/notes/${data}`).then((response) => {
         store.commit('get_note', response.data.data);
       });
     },
     cleanNotes(store) {
       store.commit('clean_notes');
     },
-    editNote(store, data) {
+    updateNote(store, data) {
       // console.log(data);
-      Vue.axios.put(`/api/v1/noteapp/notes/${data.id}`, data.data).then((response) => {
+      return Vue.axios.put(`/api/v1/noteapp/notes/${data.id}`, data.data).then((response) => {
       });
     },
     deleteNote(store, data) {
       // console.log(data);
-      Vue.axios.delete(`/api/v1/noteapp/notes/${data.id}`).then((response) => {
+      return Vue.axios.delete(`/api/v1/noteapp/notes/${data.id}`).then((response) => {
       });
     },
     login(store, data) {

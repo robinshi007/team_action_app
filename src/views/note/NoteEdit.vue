@@ -77,7 +77,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('getCategories');
+    this.$store.dispatch('getProducts');
     const { id } = this.$route.params;
     Vue.axios.get(`/api/v1/noteapp/notes/${id}`).then((response) => {
       const { data } = response.data;
@@ -101,7 +101,7 @@ export default {
             body: this.note.body,
             category_id: this.note.category_id,
           };
-          this.$store.dispatch('editNote', { id: this.$route.params.id, data }).then(() => {
+          this.$store.dispatch('updateNote', { id: this.$route.params.id, data }).then(() => {
             this.$q.notify({ message: 'Note has updated successfully.' });
             this.$router.push('/note');
           });

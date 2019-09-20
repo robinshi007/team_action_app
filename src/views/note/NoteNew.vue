@@ -6,11 +6,11 @@
           New Note
         </q-toolbar-title>
         <q-space />
-        <q-btn flat round dense icon="arrow_back" @click="gotoBack">
-          <q-tooltip>
-            Go back
-          </q-tooltip>
-        </q-btn>
+          <q-btn flat round dense icon="arrow_back" @click="gotoBack">
+            <q-tooltip>
+              Go back
+            </q-tooltip>
+          </q-btn>
       </q-toolbar>
       <q-form
         @submit="onSubmit"
@@ -36,16 +36,16 @@
           />
 
           <q-select outlined v-model="category_id" :options="selectOptions" label="Product"
-            emit-value map-options
-            :rules="[ val => val && val.length > 0 || 'Please select something']"
-            />
-          <div>
-            <q-btn label="Submit" type="submit" color="primary" />
-            <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
-          </div>
+             emit-value map-options
+             :rules="[ val => val && val.length > 0 || 'Please select something']"
+           />
+           <div>
+             <q-btn label="Submit" type="submit" color="primary" />
+               <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+           </div>
       </q-form>
 
-  </div>
+    </div>
   </q-page>
 </template>
 
@@ -71,7 +71,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('getCategories');
+    this.$store.dispatch('getProducts');
     this.$emit('stopAjaxBar');
     this.isDataLoaded = true;
   },
@@ -87,9 +87,9 @@ export default {
             body: this.body,
             category_id: this.category_id,
           };
-          this.$store.dispatch('addNote', data).then(() => {
+          this.$store.dispatch('createNote', data).then(() => {
             this.$q.notify({ message: 'Note has created successfully.' });
-            this.$router.push('/note');
+            this.$router.push({ name: 'note_list' });
           });
         }
       });
