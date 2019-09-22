@@ -14,13 +14,12 @@
       </q-toolbar>
       <q-form
         @submit="onSubmit"
-        @reset="onReset"
         class="q-gutter-md"
         ref="productForm"
         >
         <q-input
           outlined
-          v-model="name"
+          v-model="category.name"
           label="name"
           hint="name"
           lazy-rules
@@ -28,7 +27,6 @@
         />
         <div>
           <q-btn label="Submit" type="submit" color="primary" />
-            <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
         </div>
       </q-form>
     </div>
@@ -37,16 +35,27 @@
 
 <script>
 export default {
-  name: 'PageProductNew',
+  name: 'PageProductEdit',
   data() {
     return {
-      name: '',
+      category: {
+        id: '',
+        name: '',
+      },
       isDataLoaded: false,
     };
   },
   mounted() {
-    this.$emit('stopAjaxBar');
-    this.isDataLoaded = true;
+    const { id } = this.$route.params;
+    this.$emit('startAjaxBar');
+    this.axios.get(`/api/v1/noteapp/categories/${id}`).then((response) => {
+      const { data } = response.data;
+      this.category.id = data.id;
+      this.category.name = data.name;
+    }).then(() => {
+      this.isDataLoaded = true;
+      this.$emit('stopAjaxBar');
+    });
   },
   methods: {
     gotoBack() {
@@ -56,17 +65,16 @@ export default {
       this.$refs.productForm.validate().then((success) => {
         if (success) {
           const data = {
-            name: this.name,
+            name: this.category.name,
           };
-          this.$store.dispatch('createProduct', data).then(() => {
-            this.$q.notify({ message: 'Product has created successfully.' });
-            this.$router.push({ name: 'product_list' });
-          });
+          this.$store.dispatch('updateProduct', { id: this.category.id, data }).then(() => {
+            this.$store.dispatch('getProducts').then(() => {
+              this.$q.notify({ message: 'Product has updated successfully.' });
+              this.$router.push({ name: 'note.home' });
+            });
+          }).catch(err => console.log(err));
         }
       });
-    },
-    onReset() {
-      this.name = '';
     },
   },
 };

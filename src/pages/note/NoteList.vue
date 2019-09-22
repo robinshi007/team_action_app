@@ -18,7 +18,7 @@
 <script>
 import { mapState } from 'vuex';
 
-import NoteListView from './NoteListView.vue';
+import NoteListView from './view/NoteListView.vue';
 
 export default {
   name: 'PageNote',
@@ -40,16 +40,15 @@ export default {
     // this.$store.dispatch('cleanNotes');
   },
   mounted() {
+    this.$emit('startAjaxBar');
     this.$store.dispatch('getNotes').then(() => {
-      this.$store.dispatch('getProducts').then(() => {
-        this.isDataLoaded = true;
-        this.$emit('stopAjaxBar');
-      });
+      this.isDataLoaded = true;
+      this.$emit('stopAjaxBar');
     });
   },
   methods: {
     gotoNoteNew() {
-      return this.$router.push({ name: 'note_new' });
+      return this.$router.push({ name: 'note.note_new' });
     },
   },
 };

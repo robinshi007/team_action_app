@@ -34,8 +34,7 @@ import { mapState } from 'vuex';
 export default {
   name: 'PageProduct',
   mounted() {
-    this.$store.dispatch('getProducts');
-    this.$emit('stopAjaxBar');
+    this.$store.dispatch('getProducts').then(() => this.$emit('stopAjaxBar'));
   },
   computed: {
     ...mapState([
@@ -44,11 +43,11 @@ export default {
   },
   methods: {
     gotoProductNew() {
-      this.$router.push({ name: 'product_new' });
+      this.$router.push({ name: 'note.product_new' });
     },
     gotoProductEdit(id) {
       console.log(id);
-      return this.$router.push({ name: 'product_edit', params: { id } });
+      return this.$router.push({ name: 'note.product_edit', params: { id } });
     },
   },
 };

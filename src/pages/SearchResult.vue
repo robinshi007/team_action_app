@@ -17,7 +17,7 @@
       <tbody>
         <tr v-for="note in searchResult" :key="note.id" clickable>
           <td class="text-left">
-            <router-link :to='{ name: "note_detail", params: { id: note.id }}'>{{note.title}}
+            <router-link :to='{ name: "note.note_detail", params: { id: note.id }}'>{{note.title}}
             </router-link>
           </td>
           <td class="text-right">

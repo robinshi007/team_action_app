@@ -79,6 +79,7 @@ export default {
   mounted() {
     this.$store.dispatch('getProducts');
     const { id } = this.$route.params;
+    this.$emit('startAjaxBar');
     Vue.axios.get(`/api/v1/noteapp/notes/${id}`).then((response) => {
       const { data } = response.data;
       this.note.id = data.id;
@@ -86,8 +87,8 @@ export default {
       this.note.body = data.body;
       this.note.category_id = data.category.id;
       this.isDataLoaded = true;
+      this.$emit('stopAjaxBar');
     });
-    this.$emit('stopAjaxBar');
   },
   methods: {
     gotoBack() {
@@ -101,9 +102,9 @@ export default {
             body: this.note.body,
             category_id: this.note.category_id,
           };
-          this.$store.dispatch('updateNote', { id: this.$route.params.id, data }).then(() => {
+          this.$store.dispatch('updateNote', { id: this.note.id, data }).then(() => {
             this.$q.notify({ message: 'Note has updated successfully.' });
-            this.$router.push('/note');
+            this.$router.push({ name: 'note.home' });
           });
         }
       });

@@ -62,7 +62,7 @@ export default {
           this.$router.replace(query.redirect);
           this.$q.notify({ message: 'Login successfully.' });
         } else {
-          this.$router.push('/note');
+          this.$router.push({ name: 'note.home' });
           this.$q.notify({ message: 'Login successfully.' });
         }
       }).catch((err) => {

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view v-on:startAjaxBar="onStartAjaxBar" v-on:stopAjaxBar="onStopAjaxBar" />
-    <q-ajax-bar ref="bar" color="amber" size="2px" :delay="delay" :animate="false" />
+    <q-ajax-bar skip-hijack  ref="bar" color="amber" size="2px" :delay="delay" :animate="false" />
   </div>
 </template>
 
@@ -17,17 +17,26 @@ export default {
     };
   },
   created() {
+    // axios interceptors for login error
     this.axios.interceptors.response.use(resp => resp, err => new Promise((resolve, reject) => {
-      console.log('err', err);
+      // console.log('err', err);
       if (err.response.status === 401) {
         this.$q.notify({ message: 'Login failed. Invalid username or password.' });
         this.$store.dispatch('logout').then(() => this.$router.replace({ name: 'login' }));
       }
       if (err.response && err.response.data) {
-        return Promise.reject(err.response.data);
+        reject(err.response.data);
       }
-      return Promise.reject(err);
+      reject(err);
+    }).catch((e) => {
+      console.log(e);
+      this.$router.push({ name: 'error_internal_server' });
     }));
+    // this.$router.beforeEach((to, from, next) => {
+    //  self.$emit('startAjaxBar');
+    //  next();
+    // });
+    // this.$emit('stopAjaxBar');
   },
   methods: {
     onStartAjaxBar() {

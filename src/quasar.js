@@ -34,6 +34,7 @@ import {
   QDialog,
   QAvatar,
   QMarkupTable,
+  QSeparator,
   Ripple,
   Notify,
   ClosePopup,
@@ -71,6 +72,7 @@ Vue.use(Quasar, {
     QDialog,
     QAvatar,
     QMarkupTable,
+    QSeparator,
   },
   directives: {
     Ripple,

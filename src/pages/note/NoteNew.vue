@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <div v-show="isDataLoaded" class="q-pa-md">
+    <div class="q-pa-md">
       <q-toolbar class="q-px-none">
         <q-toolbar-title>
           New Note
@@ -59,7 +59,6 @@ export default {
       title: '',
       body: '',
       category_id: '',
-      isDataLoaded: false,
     };
   },
   computed: {
@@ -71,9 +70,8 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('getProducts');
+    // this.$store.dispatch('getProducts');
     this.$emit('stopAjaxBar');
-    this.isDataLoaded = true;
   },
   methods: {
     gotoBack() {
@@ -89,8 +87,8 @@ export default {
           };
           this.$store.dispatch('createNote', data).then(() => {
             this.$q.notify({ message: 'Note has created successfully.' });
-            this.$router.push({ name: 'note_list' });
-          });
+            this.$router.push({ name: 'note.home' });
+          }).catch(err => console.log(err));
         }
       });
     },

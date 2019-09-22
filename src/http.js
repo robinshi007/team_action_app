@@ -15,3 +15,7 @@ Object.defineProperties(Vue.prototype, {
     },
   },
 });
+
+// init token for axios
+const token = localStorage.getItem('token') || '';
+Vue.axios.defaults.headers.common.Authorization = `Bearer ${token}`;
