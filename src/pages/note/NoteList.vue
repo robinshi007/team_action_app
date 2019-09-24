@@ -11,12 +11,13 @@
         </q-tooltip>
       </q-btn>
     </q-toolbar>
-    <NoteListView :notes="notes" :username="username" />
+    <NoteListView :columns="columns" :notes="notes" :username="username" />
   </q-page>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import { parseISO, formatDistanceToNow } from 'date-fns';
 
 import NoteListView from './view/NoteListView.vue';
 
@@ -27,6 +28,32 @@ export default {
   },
   data() {
     return {
+      columns: [
+        {
+          name: 'name',
+          required: true,
+          label: 'Name',
+          align: 'left',
+          field: row => row.title,
+          format: val => `${val}`,
+          sortable: true,
+        },
+        {
+          name: 'category',
+          label: 'Product',
+          field: row => row.category && row.category.name,
+          format: val => `${val}`,
+          sortable: true,
+        },
+        {
+          name: 'updated_at',
+          label: 'Updated At',
+          field: row => row.updated_at,
+          format: val => `${val}`,
+          sortable: true,
+          sort: (a, b) => parseISO(a) - parseISO(b),
+        },
+      ],
       isDataLoaded: false,
     };
   },
@@ -49,6 +76,11 @@ export default {
   methods: {
     gotoNoteNew() {
       return this.$router.push({ name: 'note.note_new' });
+    },
+    dateAgo(dateStr) {
+      return formatDistanceToNow(parseISO(dateStr), {
+        includeSeconds: true,
+      });
     },
   },
 };

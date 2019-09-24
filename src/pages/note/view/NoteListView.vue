@@ -1,5 +1,26 @@
 <template>
-    <q-markup-table flat bordered>
+  <div>
+    <q-table flat :data="notes" :columns="columns" row-key="name"
+            :rows-per-page-options="[5, 10]">
+      <template v-slot:body="props">
+        <q-tr :props="props">
+          <q-td key="name" :props="props">
+            <router-link :to='{ name: "note.note_detail", params: { id: props.row.id }}'>
+              {{props.row.title}}
+            </router-link>
+          </q-td>
+          <q-td key="category" :props="props">
+            <q-badge color="green">
+              {{ props.row.category && props.row.category.name }}
+            </q-badge>
+          </q-td>
+          <q-td key="updated_at" :props="props">
+            {{ dateAgo(props.row.updated_at) }}
+          </q-td>
+        </q-tr>
+      </template>
+    </q-table>
+    <!--<q-markup-table flat bordered>
       <thead>
         <tr>
           <th class="text-left">Name</th>
@@ -22,7 +43,8 @@
             <td class="text-left">{{ username }}</td>
         </tr>
       </tbody>
-    </q-markup-table>
+    </q-markup-table> -->
+  </div>
 </template>
 
 <script>
@@ -30,6 +52,7 @@ import { parseISO, formatDistanceToNow } from 'date-fns';
 
 export default {
   props: {
+    columns: Array,
     notes: Array,
     username: String,
   },
