@@ -12,7 +12,7 @@
         </q-tooltip>
       </q-btn>
     </q-toolbar>
-    <NoteListView :notes="notes" :username="username" />
+    <NoteListView :columns="columns" :notes="notes" :username="username" />
     <q-dialog v-model="confirm_dialog" persistent>
       <q-card class="q-px-sm">
         <q-card-section>
@@ -21,7 +21,9 @@
 
         <q-card-section class="row items-center">
           <q-icon name="warning" color="warning" text-color="white" size="md"/>
-            <span class="q-ml-sm">Do you really want to delete Product "{{current_category.name}}"?</span>
+            <span class="q-ml-sm">
+              Do you really want to delete Product "{{current_category.name}}"?
+            </span>
         </q-card-section>
 
         <q-card-actions align="right">
@@ -37,6 +39,7 @@
 import { mapState } from 'vuex';
 
 import NoteListView from './view/NoteListView.vue';
+import columns from './view/columns';
 
 export default {
   name: 'PageNote',
@@ -45,6 +48,7 @@ export default {
   },
   data() {
     return {
+      columns,
       isDataLoaded: false,
       confirm_dialog: false,
     };
