@@ -21,7 +21,9 @@
 
         <q-card-section class="row items-center">
           <q-icon name="warning" color="warning" text-color="white" size="md"/>
-            <span class="q-ml-sm">Do you really want to delete Product "{{current_category.name}}"?</span>
+            <span class="q-ml-sm">
+              Do you really want to delete Product "{{current_category.name}}"?
+            </span>
         </q-card-section>
 
         <q-card-actions align="right">
@@ -50,11 +52,11 @@ export default {
     };
   },
   computed: {
-    ...mapState([
-      'notes',
-      'username',
-      'current_category',
-    ]),
+    ...mapState({
+      username: state => state.username,
+      notes: state => state.noteStore.notes,
+      current_category: state => state.noteStore.current_category,
+    }),
   },
   mounted() {
     this.$emit('startAjaxBar');

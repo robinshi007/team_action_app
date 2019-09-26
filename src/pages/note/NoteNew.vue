@@ -62,9 +62,9 @@ export default {
     };
   },
   computed: {
-    ...mapState([
-      'categories',
-    ]),
+    ...mapState({
+      categories: state => state.noteStore.categories,
+    }),
     selectOptions() {
       return this.categories.map(opt => ({ label: opt.name, value: opt.id }));
     },

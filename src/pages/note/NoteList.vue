@@ -58,10 +58,10 @@ export default {
     };
   },
   computed: {
-    ...mapState([
-      'notes',
-      'username',
-    ]),
+    ...mapState({
+      notes: state => state.noteStore.notes,
+      username: state => state.username,
+    }),
   },
   beforeCreate() {
     // this.$store.dispatch('cleanNotes');
