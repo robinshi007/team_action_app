@@ -61,3 +61,9 @@ export default {
   },
 };
 </script>
+<style>
+.q-badge a, .q-badge a:visited {
+  color: white;
+  text-decoration: none;
+}
+</style>
