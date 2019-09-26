@@ -116,8 +116,7 @@
           <q-separator />
 
             <q-card-actions align="right">
-              <q-btn flat label="Decline" color="primary" v-close-popup />
-                <q-btn flat label="Accept" color="primary" v-close-popup />
+              <q-btn flat label="Close" color="primary" v-close-popup />
             </q-card-actions>
       </q-card>
     </q-dialog>

@@ -23,7 +23,7 @@ const noteRoutes = [
         component: NoteList,
       },
       {
-        path: 'noteapp/product',
+        path: 'product',
         name: 'note.product_list',
         component: ProductList,
       },

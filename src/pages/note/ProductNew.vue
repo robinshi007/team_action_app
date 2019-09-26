@@ -57,7 +57,7 @@ export default {
           this.$store.dispatch('createProduct', data).then(() => {
             this.$store.dispatch('getProducts').then(() => {
               this.$q.notify({ message: 'Product has created successfully.' });
-              this.$router.push({ name: 'note.home' });
+              this.$router.push({ name: 'note.product_list' });
             });
           }).catch(err => console.log(err));
         }

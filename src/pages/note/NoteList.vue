@@ -7,7 +7,7 @@
       <q-space />
       <q-btn flat round dense icon="add" @click="gotoNoteNew">
         <q-tooltip>
-          Add
+          Add Note
         </q-tooltip>
       </q-btn>
     </q-toolbar>

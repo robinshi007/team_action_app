@@ -3,7 +3,7 @@
     <div v-show="isDataLoaded" class="q-pa-md">
       <q-toolbar class="q-px-none">
         <q-toolbar-title>
-          New Product
+          Edit Product
         </q-toolbar-title>
         <q-space />
         <q-btn flat round dense icon="arrow_back" @click="gotoBack">
@@ -70,7 +70,7 @@ export default {
           this.$store.dispatch('updateProduct', { id: this.category.id, data }).then(() => {
             this.$store.dispatch('getProducts').then(() => {
               this.$q.notify({ message: 'Product has updated successfully.' });
-              this.$router.push({ name: 'note.home' });
+              this.$router.push({ name: 'note.product_list' });
             });
           }).catch(err => console.log(err));
         }

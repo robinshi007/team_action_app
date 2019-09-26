@@ -23,5 +23,8 @@ export default {
       this.$emit('stopAjaxBar');
     },
   },
+  mounted() {
+    this.$emit('stopAjaxBar');
+  },
 };
 </script>

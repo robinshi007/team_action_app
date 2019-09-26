@@ -87,7 +87,7 @@ export default {
           };
           this.$store.dispatch('createNote', data).then(() => {
             this.$q.notify({ message: 'Note has created successfully.' });
-            this.$router.push({ name: 'note.home' });
+            this.$router.push({ name: 'note.note_list' });
           }).catch(err => console.log(err));
         }
       });

@@ -1,6 +1,8 @@
 <template>
   <q-list class='sidebar--right'>
-    <q-item-label header dense>Categories</q-item-label>
+    <router-link :to='{ name: "note.product_list" }'>
+      <q-item-label header dense>Categories</q-item-label>
+    </router-link>
     <q-item v-for="cate in categories" :key="cate.id" dense
             :to="{name: 'note.product_detail', params: { id: cate.id}}"
             >
@@ -27,3 +29,11 @@ export default {
 
 };
 </script>
+<style>
+.sidebar--right > a {
+  text-decoration: none;
+}
+.sidebar--right > a:visited {
+  text-decoration: none;
+}
+</style>

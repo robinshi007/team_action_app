@@ -69,9 +69,9 @@ export default {
     };
   },
   computed: {
-    ...mapState([
-      'categories',
-    ]),
+    ...mapState({
+      categories: store => store.noteStore.categories,
+    }),
     selectOptions() {
       return this.categories.map(opt => ({ label: opt.name, value: opt.id }));
     },
@@ -104,7 +104,7 @@ export default {
           };
           this.$store.dispatch('updateNote', { id: this.note.id, data }).then(() => {
             this.$q.notify({ message: 'Note has updated successfully.' });
-            this.$router.push({ name: 'note.home' });
+            this.$router.push({ name: 'note.note_list' });
           });
         }
       });

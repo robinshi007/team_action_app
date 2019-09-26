@@ -7,7 +7,7 @@
       <q-space />
       <q-btn flat round dense icon="add" @click="gotoProductNew">
         <q-tooltip>
-          Add
+          Add Category
         </q-tooltip>
       </q-btn>
     </q-toolbar>
@@ -37,16 +37,15 @@ export default {
     this.$store.dispatch('getProducts').then(() => this.$emit('stopAjaxBar'));
   },
   computed: {
-    ...mapState([
-      'categories',
-    ]),
+    ...mapState({
+      categories: store => store.noteStore.categories,
+    }),
   },
   methods: {
     gotoProductNew() {
       this.$router.push({ name: 'note.product_new' });
     },
     gotoProductEdit(id) {
-      console.log(id);
       return this.$router.push({ name: 'note.product_edit', params: { id } });
     },
   },
