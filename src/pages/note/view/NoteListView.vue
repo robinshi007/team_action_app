@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-table flat :data="notes" :columns="columns" row-key="name"
-            :rows-per-page-options="[5, 10]">
+            :rows-per-page-options="[5]">
       <template v-slot:body="props">
         <q-tr :props="props">
           <q-td key="name" :props="props">
@@ -10,12 +10,18 @@
             </router-link>
           </q-td>
           <q-td key="category" :props="props">
-            <q-badge color="green">
-              {{ props.row.category && props.row.category.name }}
+            <q-badge v-if="props.row.category" color="green">
+              <router-link :to='{ name: "note.product_detail", params: { id: props.row.category &&
+                props.row.category.id }}'>
+                {{ props.row.category && props.row.category.name }}
+              </router-link>
             </q-badge>
           </q-td>
           <q-td key="updated_at" :props="props">
             {{ dateAgo(props.row.updated_at) }}
+          </q-td>
+          <q-td key="updated_by" :props="props">
+            {{ username }}
           </q-td>
         </q-tr>
       </template>

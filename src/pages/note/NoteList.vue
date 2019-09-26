@@ -20,6 +20,7 @@ import { mapState } from 'vuex';
 import { parseISO, formatDistanceToNow } from 'date-fns';
 
 import NoteListView from './view/NoteListView.vue';
+import columns from './view/columns';
 
 export default {
   name: 'PageNote',
@@ -28,32 +29,7 @@ export default {
   },
   data() {
     return {
-      columns: [
-        {
-          name: 'name',
-          required: true,
-          label: 'Name',
-          align: 'left',
-          field: row => row.title,
-          format: val => `${val}`,
-          sortable: true,
-        },
-        {
-          name: 'category',
-          label: 'Product',
-          field: row => row.category && row.category.name,
-          format: val => `${val}`,
-          sortable: true,
-        },
-        {
-          name: 'updated_at',
-          label: 'Updated At',
-          field: row => row.updated_at,
-          format: val => `${val}`,
-          sortable: true,
-          sort: (a, b) => parseISO(a) - parseISO(b),
-        },
-      ],
+      columns,
       isDataLoaded: false,
     };
   },
