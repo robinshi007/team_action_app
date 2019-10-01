@@ -30,7 +30,7 @@ export default {
       reject(err);
     }).catch((e) => {
       console.log(e);
-      this.$router.push({ name: 'error_internal_server' });
+      this.$router.replace({ name: 'error_internal_server' });
     }));
     // this.$router.beforeEach((to, from, next) => {
     //  self.$emit('startAjaxBar');
