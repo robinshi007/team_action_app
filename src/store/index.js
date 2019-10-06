@@ -75,10 +75,16 @@ export default new Vuex.Store({
     login({ commit }, data) {
       // console.log(data);
       commit('auth_request');
-      return Vue.axios.post('/api/v1/login', data).then((response) => {
-        const { token } = response.data;
-        commit('auth_success', token);
-        Vue.axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+      return Vue.axios.post('/api/v1/login', data, {
+        validateStatus: status => status >= 200 && status < 300,
+      }).then((response) => {
+        if (response) {
+          const { token } = response.data;
+          commit('auth_success', token);
+          Vue.axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+          return Promise.resolve(response);
+        }
+        return undefined;
       }).catch((err) => {
         commit('auth_error');
         Promise.reject(err);

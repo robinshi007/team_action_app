@@ -54,16 +54,17 @@ export default {
     onLogin() {
       const { username } = this;
       const { password } = this;
-      this.$store.dispatch('login', { username, password }).then(() => {
-        this.$store.dispatch('setUsername').then(() => {
-        });
-        const { query } = this.$route;
-        if (query && query.redirect) {
-          this.$router.replace(query.redirect);
-          this.$q.notify({ message: 'Login successfully.' });
-        } else {
-          this.$router.push({ name: 'note.home' });
-          this.$q.notify({ message: 'Login successfully.' });
+      this.$store.dispatch('login', { username, password }).then((response) => {
+        if (response) {
+          this.$store.dispatch('setUsername').then(() => {
+            const { query } = this.$route;
+            if (query && query.redirect) {
+              this.$router.replace(query.redirect);
+            } else {
+              this.$router.push({ name: 'note.home' });
+            }
+            this.$q.notify({ message: 'Login successfully.' });
+          });
         }
       }).catch((err) => {
         console.log(err);
