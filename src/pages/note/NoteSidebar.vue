@@ -1,10 +1,10 @@
 <template>
   <q-list class='sidebar--right'>
-    <router-link :to='{ name: "note.product_list" }'>
+    <router-link :to='{ name: "note.category_list" }'>
       <q-item-label header dense>Categories</q-item-label>
     </router-link>
     <q-item v-for="cate in categories" :key="cate.id" dense
-            :to="{name: 'note.product_detail', params: { id: cate.id}}"
+            :to="{name: 'note.category_detail', params: { id: cate.id}}"
             >
             <q-item-section>
               <q-item-label>{{ cate.name }}</q-item-label>
@@ -24,7 +24,7 @@ export default {
     ]),
   },
   mounted() {
-    this.$store.dispatch('getProducts');
+    this.$store.dispatch('getCategorys');
   },
 
 };

@@ -35,7 +35,7 @@
           :rules="[ val => val && val.length > 0 || 'Please type something']"
           />
 
-          <q-select outlined v-model="category_id" :options="selectOptions" label="Product"
+          <q-select outlined v-model="category_id" :options="selectOptions" label="Category"
              emit-value map-options
              :rules="[ val => val && val.length > 0 || 'Please select something']"
            />
@@ -70,7 +70,7 @@ export default {
     },
   },
   mounted() {
-    // this.$store.dispatch('getProducts');
+    // this.$store.dispatch('getCategorys');
     this.$emit('stopAjaxBar');
   },
   methods: {

@@ -38,7 +38,7 @@
             outlined
             v-model="note.category_id"
             :options="selectOptions"
-            label="Product"
+            label="Category"
             emit-value map-options
             :rules="[ val => val && val.length > 0 || 'Please select something']"
             />
@@ -77,7 +77,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('getProducts');
+    this.$store.dispatch('getCategorys');
     const { id } = this.$route.params;
     this.$emit('startAjaxBar');
     Vue.axios.get(`/api/v1/noteapp/notes/${id}`).then((response) => {

@@ -2,7 +2,7 @@
   <q-page v-show="isDataLoaded" padding>
     <q-toolbar class="q-px-none">
       <q-toolbar-title>
-        Product
+        Category
         <q-badge color='green' class='q-px-sm q-py-xs' :label="current_category" />
       </q-toolbar-title>
       <q-space />
@@ -22,13 +22,13 @@
         <q-card-section class="row items-center">
           <q-icon name="warning" color="warning" text-color="white" size="md"/>
             <span class="q-ml-sm">
-              Do you really want to delete Product "{{current_category.name}}"?
+              Do you really want to delete Category "{{current_category.name}}"?
             </span>
         </q-card-section>
 
         <q-card-actions align="right">
           <q-btn flat label="Cancel" color="primary" v-close-popup />
-            <q-btn flat label="Confirm" color="negative" @click="deleteProduct" v-close-popup />
+            <q-btn flat label="Confirm" color="negative" @click="deleteCategory" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -77,14 +77,14 @@ export default {
     },
     fetchData() {
       const { id } = this.$route.params;
-      // return this.$store.dispatch('getProductNotes', { id })
-      // .then(() => this.$store.dispatch('getProducts'));
-      return this.$store.dispatch('getProductNotes', { id });
+      // return this.$store.dispatch('getCategoryNotes', { id })
+      // .then(() => this.$store.dispatch('getCategorys'));
+      return this.$store.dispatch('getCategoryNotes', { id });
     },
-    deleteProduct() {
-      this.$store.dispatch('deleteProduct', { id: this.$route.params.id })
-        .then(() => this.$store.dispatch('getProducts'))
-        .then(() => this.$q.notify({ message: 'Product has deleted successfully.' }))
+    deleteCategory() {
+      this.$store.dispatch('deleteCategory', { id: this.$route.params.id })
+        .then(() => this.$store.dispatch('getCategorys'))
+        .then(() => this.$q.notify({ message: 'Category has deleted successfully.' }))
         .then(() => this.$router.push({ name: 'note.home' }));
     },
   },

@@ -3,7 +3,7 @@
     <div v-show="isDataLoaded" class="q-pa-md">
       <q-toolbar class="q-px-none">
         <q-toolbar-title>
-          Edit Product
+          Edit Category
         </q-toolbar-title>
         <q-space />
         <q-btn flat round dense icon="arrow_back" @click="gotoBack">
@@ -15,7 +15,7 @@
       <q-form
         @submit="onSubmit"
         class="q-gutter-md"
-        ref="productForm"
+        ref="categoryForm"
         >
         <q-input
           outlined
@@ -35,7 +35,7 @@
 
 <script>
 export default {
-  name: 'PageProductEdit',
+  name: 'PageCategoryEdit',
   data() {
     return {
       category: {
@@ -62,15 +62,15 @@ export default {
       this.$router.go(-1);
     },
     onSubmit() {
-      this.$refs.productForm.validate().then((success) => {
+      this.$refs.categoryForm.validate().then((success) => {
         if (success) {
           const data = {
             name: this.category.name,
           };
-          this.$store.dispatch('updateProduct', { id: this.category.id, data }).then(() => {
-            this.$store.dispatch('getProducts').then(() => {
-              this.$q.notify({ message: 'Product has updated successfully.' });
-              this.$router.push({ name: 'note.product_list' });
+          this.$store.dispatch('updateCategory', { id: this.category.id, data }).then(() => {
+            this.$store.dispatch('getCategorys').then(() => {
+              this.$q.notify({ message: 'Category has updated successfully.' });
+              this.$router.push({ name: 'note.category_list' });
             });
           }).catch(err => console.log(err));
         }

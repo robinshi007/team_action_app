@@ -1,9 +1,9 @@
-import EmptyView from '../pages/EmptyView.vue';
+import ViewEmpty from '../layouts/ViewEmpty.vue';
 import NoteSidebar from '../pages/note/NoteSidebar.vue';
-import ProductList from '../pages/note/ProductList.vue';
-import ProductDetail from '../pages/note/ProductDetail.vue';
-import ProductNew from '../pages/note/ProductNew.vue';
-import ProductEdit from '../pages/note/ProductEdit.vue';
+import CategoryList from '../pages/note/CategoryList.vue';
+import CategoryDetail from '../pages/note/CategoryDetail.vue';
+import CategoryNew from '../pages/note/CategoryNew.vue';
+import CategoryEdit from '../pages/note/CategoryEdit.vue';
 import NoteList from '../pages/note/NoteList.vue';
 import NoteDetail from '../pages/note/NoteDetail.vue';
 import NoteNew from '../pages/note/NoteNew.vue';
@@ -13,7 +13,7 @@ const noteRoutes = [
   {
     path: '/noteapp',
     components: {
-      default: EmptyView,
+      default: ViewEmpty,
       sidebar: NoteSidebar,
     },
     children: [
@@ -23,27 +23,27 @@ const noteRoutes = [
         component: NoteList,
       },
       {
-        path: 'product',
-        name: 'note.product_list',
-        component: ProductList,
+        path: 'category',
+        name: 'note.category_list',
+        component: CategoryList,
       },
       {
-        path: 'product_new',
-        name: 'note.product_new',
-        component: ProductNew,
+        path: 'category_new',
+        name: 'note.category_new',
+        component: CategoryNew,
         meta: {
           requiresAuth: true,
         },
       },
       {
-        path: 'product/:id',
-        name: 'note.product_detail',
-        component: ProductDetail,
+        path: 'category/:id',
+        name: 'note.category_detail',
+        component: CategoryDetail,
       },
       {
-        path: 'product/:id/edit',
-        name: 'note.product_edit',
-        component: ProductEdit,
+        path: 'category/:id/edit',
+        name: 'note.category_edit',
+        component: CategoryEdit,
         meta: {
           requiresAuth: true,
         },

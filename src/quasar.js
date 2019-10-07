@@ -92,7 +92,7 @@ Vue.use(Quasar, {
   config: {
     notify: {
       position: 'top',
-      timeout: 2000,
+      timeout: 1000,
       color: 'white',
       textColor: 'primary',
       actions: [{ icon: 'close', color: 'primary' }],

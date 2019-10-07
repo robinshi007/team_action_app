@@ -33,6 +33,13 @@
           <q-list dense padding>
             <q-item clickable>
               <q-item-section>
+                <a @click.prevent="changePassword">
+                 Change Password
+                </a>
+              </q-item-section>
+              </q-item>
+            <q-item clickable>
+              <q-item-section>
                 <a @click.prevent="logout">
                   Logout
                 </a>
@@ -152,7 +159,7 @@ export default {
     //  next();
     // });
     // this.$emit('stopAjaxBar');
-    this.$store.dispatch('getProducts');
+    this.$store.dispatch('getCategorys');
   },
   methods: {
     onStartAjaxBar() {
@@ -176,6 +183,9 @@ export default {
         // window.location.reload(true);
         this.$router.push({ name: 'login' });
       });
+    },
+    changePassword() {
+      this.$router.push({ name: 'account.change_password' });
     },
     onSearch() {
       if (this.searchText) {

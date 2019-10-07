@@ -37,27 +37,27 @@ export default {
     },
   },
   actions: {
-    getProducts({ commit }) {
+    getCategorys({ commit }) {
       return Vue.axios.get('/api/v1/noteapp/categories').then(response => response.data).then((json) => {
         // console.log(response.data.data);
         commit('set_categories', json.data);
       });
     },
-    createProduct(store, data) {
+    createCategory(store, data) {
       return Vue.axios.post('/api/v1/noteapp/categories', data).then((response) => {
       });
     },
-    updateProduct(store, data) {
+    updateCategory(store, data) {
       // console.log(data);
       return Vue.axios.put(`/api/v1/noteapp/categories/${data.id}`, data.data).then((response) => {
       });
     },
-    getProductNotes(store, data) {
+    getCategoryNotes(store, data) {
       return Vue.axios.get(`/api/v1/noteapp/categories/${data.id}`).then((response) => {
-        const product = response.data.data.name;
+        const category = response.data.data.name;
         const notes = response.data.data.notes || [];
         store.commit('set_notes', notes);
-        store.commit('set_current_category', product);
+        store.commit('set_current_category', category);
       });
     },
     getNotes(store) {
@@ -87,7 +87,7 @@ export default {
       return Vue.axios.delete(`/api/v1/noteapp/notes/${data.id}`).then((response) => {
       });
     },
-    deleteProduct(store, data) {
+    deleteCategory(store, data) {
       // console.log(data);
       return Vue.axios.delete(`/api/v1/noteapp/categories/${data.id}`).then((response) => {
       });

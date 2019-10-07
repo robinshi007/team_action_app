@@ -12,7 +12,7 @@ const columns = [
   },
   {
     name: 'category',
-    label: 'Product',
+    label: 'Category',
     field: row => row.category && row.category.name,
     format: val => `${val}`,
     sortable: true,

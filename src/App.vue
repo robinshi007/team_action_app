@@ -21,7 +21,7 @@ export default {
     this.axios.interceptors.response.use(resp => resp, err => new Promise((resolve, reject) => {
       // console.log('err', err);
       if (err.response.status === 401) {
-        this.$q.notify({ message: `Login failed. Invalid username or password.` });
+        this.$q.notify({ message: 'Login failed. Invalid username or password.' });
         this.$store.dispatch('logout').then(() => this.$router.replace({ name: 'login' }));
       }
       if (err.response && err.response.data) {

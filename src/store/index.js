@@ -13,6 +13,7 @@ export default new Vuex.Store({
     status: '',
     token: localStorage.getItem('token') || '',
     username: localStorage.getItem('username') || '',
+    user_id: localStorage.getItem('user_id') || '',
     session_time: localStorage.getItem('session_time') || '',
     search_text: '',
     search_result: [],
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     isLoggedIn: state => !!state.token,
     authStatus: state => state.status,
     username: state => state.username,
+    userId: state => state.user_id,
     sessionTime: state => state.session_time,
     searchText: state => state.search_text,
     searchResult: state => state.search_result,
@@ -47,8 +49,12 @@ export default new Vuex.Store({
       state.status = '';
       state.token = '';
       state.session_time = '';
+      state.username = '';
+      state.user_id = '';
       localStorage.removeItem('token');
       localStorage.removeItem('session_time');
+      localStorage.removeItem('username');
+      localStorage.removeItem('user_id');
     },
     auth_session_time(state) {
       const timeNow = (new Date()).toISOString();
@@ -57,6 +63,9 @@ export default new Vuex.Store({
     },
     set_username(state, name) {
       state.username = name;
+    },
+    set_user_id(state, id) {
+      state.user_id = id;
     },
     clean_search_text(state) {
       state.search_text = '';
@@ -101,8 +110,6 @@ export default new Vuex.Store({
     logout({ commit }) {
       return new Promise((resolve, reject) => {
         commit('auth_logout');
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
         delete Vue.axios.defaults.headers.common.Authorization;
         resolve();
       });
@@ -111,7 +118,19 @@ export default new Vuex.Store({
       // console.log(data);
       return Vue.axios.get('/api/v1/auth/hello').then((response) => {
         commit('set_username', response.data.userName);
+        commit('set_user_id', response.data.userID);
         localStorage.setItem('username', response.data.userName);
+        localStorage.setItem('user_id', response.data.userID);
+      });
+    },
+    changePassword({ commit, state }, data) {
+      return Vue.axios.put(`/api/v1/users/${state.user_id}/update_password`, data).then((response) => {
+        if (response) {
+          return Promise.resolve(response);
+        }
+        return undefined;
+      }).catch((err) => {
+        Promise.reject(err);
       });
     },
     setSearchText({ commit }, word) {

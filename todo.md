@@ -4,6 +4,6 @@
 * [done] using ajax bar when fetch data only
 * [done] refine layout for note app 
 * [done] refine data fetch
-* change product to category
-* add paginate
+* [done] change product to category
+* [done] add paginate
 * refine table toolbar pattern

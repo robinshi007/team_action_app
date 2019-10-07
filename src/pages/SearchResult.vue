@@ -9,7 +9,7 @@
       <thead>
         <tr>
           <th class="text-left">Name</th>
-          <th class="text-right">Product</th>
+          <th class="text-right">Category</th>
           <th class="text-right">Update At</th>
           <th class="text-right">Update By</th>
         </tr>

@@ -1,5 +1,5 @@
-import ErrorInternalServer from '../pages/ErrorInternalServer.vue';
-import ErrorNotFound from '../pages/ErrorNotFound.vue';
+import ErrorInternalServer from '../pages/error/ErrorInternalServer.vue';
+import ErrorNotFound from '../pages/error/ErrorNotFound.vue';
 
 const routes = [
   {

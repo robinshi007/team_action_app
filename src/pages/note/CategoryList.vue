@@ -2,22 +2,24 @@
   <q-page padding>
       <q-toolbar class="q-px-none">
         <q-toolbar-title>
-          Product List
+          Category List
         </q-toolbar-title>
       <q-space />
-      <q-btn flat round dense icon="add" @click="gotoProductNew">
+      <q-btn flat round dense icon="add" @click="gotoCategoryNew">
         <q-tooltip>
           Add Category
         </q-tooltip>
       </q-btn>
     </q-toolbar>
     <q-list separator bordered>
-      <q-item v-for="cate in categories" :key="cate.id" clickable v-ripple>
-        <q-item-section>
-          {{cate.name}}
+      <q-item v-for="cate in categories" :key="cate.id" clickable v-ripple >
+        <q-item-section >
+          <router-link :to="{name: 'note.category_detail', params: { id: cate.id}}">
+            {{ cate.name }}
+          </router-link>
         </q-item-section>
         <q-item-section side>
-          <q-btn flat round dense icon="edit" @click="gotoProductEdit(cate.id)">
+          <q-btn flat round dense icon="edit" @click="gotoCategoryEdit(cate.id)">
             <q-tooltip>
              Edit
             </q-tooltip>
@@ -32,9 +34,9 @@
 import { mapState } from 'vuex';
 
 export default {
-  name: 'PageProduct',
+  name: 'PageCategory',
   mounted() {
-    this.$store.dispatch('getProducts').then(() => this.$emit('stopAjaxBar'));
+    this.$store.dispatch('getCategorys').then(() => this.$emit('stopAjaxBar'));
   },
   computed: {
     ...mapState({
@@ -42,11 +44,11 @@ export default {
     }),
   },
   methods: {
-    gotoProductNew() {
-      this.$router.push({ name: 'note.product_new' });
+    gotoCategoryNew() {
+      this.$router.push({ name: 'note.category_new' });
     },
-    gotoProductEdit(id) {
-      return this.$router.push({ name: 'note.product_edit', params: { id } });
+    gotoCategoryEdit(id) {
+      return this.$router.push({ name: 'note.category_edit', params: { id } });
     },
   },
 };

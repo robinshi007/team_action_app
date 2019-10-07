@@ -11,7 +11,7 @@
           </q-td>
           <q-td key="category" :props="props">
             <q-badge v-if="props.row.category" color="green">
-              <router-link :to='{ name: "note.product_detail", params: { id: props.row.category &&
+              <router-link :to='{ name: "note.category_detail", params: { id: props.row.category &&
                 props.row.category.id }}'>
                 {{ props.row.category && props.row.category.name }}
               </router-link>
@@ -30,7 +30,7 @@
       <thead>
         <tr>
           <th class="text-left">Name</th>
-          <th class="text-left" show-if="!$route.fullPath.startWith('/noteapp')">Product</th>
+          <th class="text-left" show-if="!$route.fullPath.startWith('/noteapp')">Category</th>
           <th class="text-left">Update At</th>
           <th class="text-left">Update By</th>
         </tr>
