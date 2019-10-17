@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import { mapState } from 'vuex';
 
 export default {
@@ -71,7 +72,15 @@ export default {
   },
   mounted() {
     // this.$store.dispatch('getCategorys');
-    this.$emit('stopAjaxBar');
+    this.$emit('startAjaxBar');
+    Vue.axios.get('/api/v1/noteapp/categories/未分类/by_name').then((response) => {
+      const { data } = response.data;
+      this.category_id = data.id;
+      this.$emit('stopAjaxBar');
+    }).catch((err) => {
+      this.$router.push({ name: 'error_internal_server' });
+      this.$emit('stopAjaxBar');
+    });
   },
   methods: {
     gotoBack() {
@@ -85,8 +94,16 @@ export default {
             body: this.body,
             category_id: this.category_id,
           };
-          this.$store.dispatch('createNote', data).then(() => {
-            this.$q.notify({ message: 'Note has created successfully.' });
+          this.$store.dispatch('createNote', data).then((d) => {
+            if (d !== undefined) {
+              this.$q.notify({ message: 'Note has created successfully.' });
+            } else {
+              this.$q.notify({
+                color: 'purple',
+                textColor: 'white',
+                message: 'Note has created failed.',
+              });
+            }
             this.$router.push({ name: 'note.note_list' });
           }).catch(err => console.log(err));
         }

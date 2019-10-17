@@ -95,7 +95,6 @@ Vue.use(Quasar, {
       timeout: 1000,
       color: 'white',
       textColor: 'primary',
-      actions: [{ icon: 'close', color: 'primary' }],
     },
   },
 });
