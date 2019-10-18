@@ -66,7 +66,7 @@ export default {
       });
     },
     createNote(store, data) {
-      return Vue.axios.post('/api/v1/noteapp/notes', data);
+      return Vue.axios.post('/api/v1/noteapp/notes', data).then(response => response.data);
     },
     getNote(store, data) {
       return Vue.axios.get(`/api/v1/noteapp/notes/${data}`).then((response) => {

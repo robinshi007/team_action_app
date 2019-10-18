@@ -97,10 +97,10 @@ export default {
           };
           this.$store.dispatch('createNote', data).then((d) => {
             if (d.data !== undefined) {
-              this.nid = d.data.data;
+              this.nid = d.data;
               this.$q.notify({ message: 'Note has created successfully.' });
               console.log(this.nid);
-              this.$router.push({ name: 'note.note_detail', id: this.nid });
+              this.$router.push({ name: 'note.note_detail', params: { id: this.nid } });
             } else {
               this.$q.notify({
                 color: 'purple',
