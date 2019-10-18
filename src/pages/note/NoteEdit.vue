@@ -104,7 +104,7 @@ export default {
           };
           this.$store.dispatch('updateNote', { id: this.note.id, data }).then(() => {
             this.$q.notify({ message: 'Note has updated successfully.' });
-            this.$router.push({ name: 'note.note_list' });
+            this.$router.push({ name: 'note.note_detail', id: this.note.id });
           });
         }
       });

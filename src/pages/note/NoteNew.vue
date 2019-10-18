@@ -57,6 +57,7 @@ export default {
   name: 'PageNoteNew',
   data() {
     return {
+      nid: '',
       title: '',
       body: '',
       category_id: '',
@@ -95,16 +96,19 @@ export default {
             category_id: this.category_id,
           };
           this.$store.dispatch('createNote', data).then((d) => {
-            if (d !== undefined) {
+            if (d.data !== undefined) {
+              this.nid = d.data.data;
               this.$q.notify({ message: 'Note has created successfully.' });
+              console.log(this.nid);
+              this.$router.push({ name: 'note.note_detail', id: this.nid });
             } else {
               this.$q.notify({
                 color: 'purple',
                 textColor: 'white',
                 message: 'Note has created failed.',
               });
+              this.$router.push({ name: 'note.note_list' });
             }
-            this.$router.push({ name: 'note.note_list' });
           }).catch(err => console.log(err));
         }
       });
