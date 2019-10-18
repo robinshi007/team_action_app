@@ -20,7 +20,7 @@
       <div class='text-h4 q-py-sm'>{{note.title}}</div>
       <q-badge v-show="note.category" color='green' class='q-px-sm q-py-xs'
         :label="note.category && note.category.name" />
-      <div class='text-body1 q-pt-md'>{{note.body}}</div>
+      <div class='text-body1 q-pt-md' v-html='marked(note.body)'></div>
     </div>
     <q-dialog v-model="confirm_dialog" persistent>
       <q-card class="q-px-sm">
@@ -45,6 +45,21 @@
 <script>
 import Vue from 'vue';
 import { mapGetters } from 'vuex';
+
+const marked = require('marked');
+
+// Set options
+// `highlight` example uses `highlight.js`
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  pedantic: false,
+  gfm: true,
+  breaks: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false,
+  xhtml: false,
+});
 
 export default {
   name: 'PageNoteDetail',
@@ -92,6 +107,9 @@ export default {
       this.$store.dispatch('deleteNote', { id: this.$route.params.id })
         .then(() => this.$router.push({ name: 'note.home' }));
       this.$q.notify({ message: 'Note has deleted successfully.' });
+    },
+    marked(str) {
+      return marked(str);
     },
   },
 };
